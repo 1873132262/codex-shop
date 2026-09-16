@@ -1,0 +1,2714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="悦膳现代中餐厅，以时令食材演绎江南风味，为家宴与商务宴请提供雅致从容的用餐体验。">
+  <meta name="theme-color" content="#f4efe6">
+  <title>悦膳 · 现代中餐厅</title>
+  <style>
+    :root {
+      --paper: #f4efe6;
+      --paper-deep: #e9e0d2;
+      --ink: #1d1b18;
+      --ink-soft: #38342f;
+      --muted: #746c62;
+      --line: rgba(29, 27, 24, 0.14);
+      --vermilion: #a23b2d;
+      --vermilion-dark: #7f2b21;
+      --gold: #a47c43;
+      --white: #fffdf8;
+      --shadow: 0 24px 70px rgba(38, 28, 18, 0.13);
+      --header-height: 76px;
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --serif: "Songti SC", "STSong", "Noto Serif CJK SC", "SimSun", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(164, 124, 67, 0.09), transparent 26rem),
+        radial-gradient(circle at 88% 38%, rgba(162, 59, 45, 0.06), transparent 30rem),
+        var(--paper);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    img.is-broken {
+      opacity: 0;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    figure,
+    blockquote,
+    p,
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+    }
+
+    section {
+      position: relative;
+      scroll-margin-top: calc(var(--header-height) + 24px);
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .container {
+      width: min(calc(100% - 48px), 1200px);
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 2000;
+      top: 12px;
+      left: 16px;
+      padding: 10px 16px;
+      color: var(--white);
+      background: var(--ink);
+      border-radius: 999px;
+      transform: translateY(-160%);
+      transition: transform 180ms ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--vermilion);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 26px;
+      height: 1px;
+      content: "";
+      background: currentColor;
+    }
+
+    .section-title {
+      margin-top: 14px;
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 62px);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 1.13;
+    }
+
+    .section-title em {
+      color: var(--vermilion);
+      font-style: normal;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
+      align-items: end;
+      gap: 48px;
+      margin-bottom: 52px;
+    }
+
+    .section-heading > p {
+      max-width: 430px;
+      padding-bottom: 8px;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 24px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn:focus-visible,
+    .nav-link:focus-visible,
+    .mobile-toggle:focus-visible,
+    .modal-close:focus-visible {
+      outline: 3px solid rgba(162, 59, 45, 0.32);
+      outline-offset: 3px;
+    }
+
+    .btn--primary {
+      color: var(--white);
+      background: var(--vermilion);
+      box-shadow: 0 12px 26px rgba(162, 59, 45, 0.22);
+    }
+
+    .btn--primary:hover {
+      background: var(--vermilion-dark);
+      box-shadow: 0 16px 30px rgba(162, 59, 45, 0.28);
+    }
+
+    .btn--ghost {
+      color: var(--ink);
+      border-color: var(--line);
+      background: rgba(255, 253, 248, 0.48);
+    }
+
+    .btn--ghost:hover {
+      border-color: rgba(29, 27, 24, 0.3);
+      background: var(--white);
+    }
+
+    .btn--light {
+      color: var(--ink);
+      background: var(--white);
+    }
+
+    .btn--light:hover {
+      background: #f1e8db;
+    }
+
+    .btn--outline-light {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.3);
+      background: transparent;
+    }
+
+    .btn--outline-light:hover {
+      border-color: rgba(255, 255, 255, 0.58);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .btn .arrow {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .site-header {
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: var(--header-height);
+      border-bottom: 1px solid transparent;
+      transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, backdrop-filter 220ms ease;
+    }
+
+    .site-header.is-scrolled,
+    .site-header:focus-within {
+      border-bottom-color: var(--line);
+      background: rgba(244, 239, 230, 0.9);
+      box-shadow: 0 8px 30px rgba(37, 29, 20, 0.06);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-shell {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .brand-mark {
+      display: inline-grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      color: var(--white);
+      background: var(--vermilion);
+      border-radius: 50% 50% 46% 54%;
+      font-family: var(--serif);
+      font-size: 21px;
+      line-height: 1;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 1px;
+    }
+
+    .brand-name {
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      line-height: 1.1;
+    }
+
+    .brand-en {
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.19em;
+      line-height: 1.2;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 8px 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 180ms ease;
+    }
+
+    .nav-link::after {
+      position: absolute;
+      right: 0;
+      bottom: 2px;
+      left: 0;
+      height: 1px;
+      content: "";
+      background: var(--vermilion);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 200ms ease;
+    }
+
+    .nav-link:hover,
+    .nav-link[aria-current="page"] {
+      color: var(--vermilion);
+    }
+
+    .nav-link:hover::after,
+    .nav-link[aria-current="page"]::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-actions {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .phone-link {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .phone-link:hover {
+      color: var(--vermilion);
+    }
+
+    .nav-reserve {
+      min-height: 42px;
+      padding-inline: 20px;
+      font-size: 13px;
+    }
+
+    .mobile-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .mobile-toggle span {
+      display: block;
+      width: 23px;
+      height: 1.5px;
+      margin: 5px auto;
+      background: var(--ink);
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .mobile-toggle[aria-expanded="true"] span:first-child {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+
+    .mobile-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-toggle[aria-expanded="true"] span:last-child {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    .hero {
+      min-height: 820px;
+      padding: 148px 0 82px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      position: absolute;
+      z-index: -1;
+      top: 80px;
+      right: -130px;
+      width: 520px;
+      height: 520px;
+      content: "";
+      border: 1px solid rgba(164, 124, 67, 0.17);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      position: absolute;
+      z-index: -1;
+      top: 168px;
+      right: -65px;
+      width: 520px;
+      height: 520px;
+      content: "";
+      border: 1px solid rgba(164, 124, 67, 0.11);
+      border-radius: 50%;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(460px, 1.08fr);
+      align-items: center;
+      gap: 62px;
+    }
+
+    .hero-copy {
+      padding: 30px 0 34px;
+    }
+
+    .hero-title {
+      max-width: 660px;
+      margin-top: 24px;
+      font-family: var(--serif);
+      font-size: clamp(56px, 7vw, 86px);
+      font-weight: 500;
+      letter-spacing: -0.065em;
+      line-height: 1.08;
+    }
+
+    .hero-title em {
+      position: relative;
+      color: var(--vermilion);
+      font-style: normal;
+    }
+
+    .hero-title em::after {
+      position: absolute;
+      right: 0;
+      bottom: 3px;
+      left: 4px;
+      height: 7px;
+      content: "";
+      background: rgba(162, 59, 45, 0.09);
+      border-radius: 999px;
+    }
+
+    .hero-intro {
+      max-width: 520px;
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.95;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 54px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-meta span {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .hero-meta strong {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 620px;
+    }
+
+    .hero-main {
+      position: relative;
+      width: 88%;
+      height: 568px;
+      margin-left: auto;
+      overflow: hidden;
+      background: linear-gradient(135deg, #b58a69, #4b2d21);
+      border-radius: 180px 180px 34px 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main::after,
+    .hero-small::after,
+    .story-photo::after,
+    .gallery-item::after,
+    .dish-image::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background: linear-gradient(180deg, transparent 45%, rgba(18, 14, 10, 0.18));
+      pointer-events: none;
+    }
+
+    .hero-small {
+      position: absolute;
+      z-index: 2;
+      bottom: 18px;
+      left: 0;
+      width: 38%;
+      height: 224px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #c9ad79, #6c4730);
+      border: 9px solid var(--paper);
+      border-radius: 100px 100px 20px 20px;
+      box-shadow: 0 18px 48px rgba(38, 28, 18, 0.18);
+    }
+
+    .hero-seal {
+      position: absolute;
+      z-index: 3;
+      top: 78px;
+      left: 5%;
+      display: grid;
+      width: 92px;
+      height: 92px;
+      place-items: center;
+      padding: 10px;
+      color: var(--vermilion);
+      background: rgba(255, 253, 248, 0.96);
+      border: 1px solid rgba(162, 59, 45, 0.32);
+      border-radius: 50%;
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      line-height: 1.45;
+      text-align: center;
+      box-shadow: 0 14px 38px rgba(38, 28, 18, 0.13);
+      transform: rotate(-8deg);
+    }
+
+    .hero-note {
+      position: absolute;
+      z-index: 3;
+      right: -18px;
+      bottom: 68px;
+      width: 210px;
+      padding: 18px 20px;
+      background: var(--ink);
+      color: var(--white);
+      border-radius: 14px;
+      box-shadow: 0 18px 42px rgba(25, 20, 15, 0.24);
+    }
+
+    .hero-note span {
+      display: block;
+      margin-bottom: 4px;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+    }
+
+    .hero-note strong {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .brand-strip {
+      border-block: 1px solid var(--line);
+      background: rgba(255, 253, 248, 0.36);
+    }
+
+    .brand-strip-inner {
+      display: flex;
+      min-height: 74px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: 15px;
+      letter-spacing: 0.18em;
+    }
+
+    .brand-strip i {
+      width: 4px;
+      height: 4px;
+      background: var(--vermilion);
+      border-radius: 50%;
+    }
+
+    .section {
+      padding: 118px 0;
+    }
+
+    .signature {
+      background:
+        linear-gradient(180deg, rgba(255, 253, 248, 0.22), transparent 34%),
+        var(--paper);
+    }
+
+    .dish-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .dish-card {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 253, 248, 0.72);
+      border: 1px solid rgba(29, 27, 24, 0.09);
+      border-radius: var(--radius-lg);
+      transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+    }
+
+    .dish-card:hover {
+      border-color: rgba(162, 59, 45, 0.24);
+      box-shadow: 0 22px 54px rgba(38, 28, 18, 0.11);
+      transform: translateY(-7px);
+    }
+
+    .dish-image {
+      position: relative;
+      height: 310px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #d6c3a4, #7d553a);
+    }
+
+    .dish-image img {
+      transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .dish-card:hover .dish-image img {
+      transform: scale(1.045);
+    }
+
+    .dish-index {
+      position: absolute;
+      z-index: 2;
+      top: 18px;
+      left: 18px;
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      color: var(--ink);
+      background: rgba(255, 253, 248, 0.9);
+      border-radius: 50%;
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+
+    .dish-body {
+      padding: 26px 26px 28px;
+    }
+
+    .dish-topline {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .dish-title {
+      font-family: var(--serif);
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .dish-price {
+      flex: 0 0 auto;
+      color: var(--vermilion);
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .dish-description {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .dish-tag {
+      display: inline-flex;
+      margin-top: 18px;
+      padding: 5px 11px;
+      color: var(--gold);
+      background: rgba(164, 124, 67, 0.09);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .banquet {
+      overflow: hidden;
+      color: var(--white);
+      background: #181614;
+    }
+
+    .banquet::before {
+      position: absolute;
+      top: -190px;
+      left: -140px;
+      width: 520px;
+      height: 520px;
+      content: "";
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 50%;
+    }
+
+    .banquet .eyebrow {
+      color: #d5a35e;
+    }
+
+    .banquet .section-heading > p {
+      color: rgba(255, 255, 255, 0.58);
+    }
+
+    .banquet-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .banquet-card {
+      position: relative;
+      min-height: 500px;
+      overflow: hidden;
+      background: #332923;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      isolation: isolate;
+    }
+
+    .banquet-bg {
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      background: linear-gradient(145deg, #6f4d34, #201917);
+    }
+
+    .banquet-bg img {
+      opacity: 0.58;
+      filter: saturate(0.82);
+      transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .banquet-card:hover .banquet-bg img {
+      transform: scale(1.035);
+    }
+
+    .banquet-card::after {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      background: linear-gradient(180deg, rgba(16, 13, 11, 0.08), rgba(16, 13, 11, 0.92) 78%);
+    }
+
+    .banquet-content {
+      display: flex;
+      min-height: 500px;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 38px;
+    }
+
+    .banquet-kicker {
+      color: #d6ad6d;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+    }
+
+    .banquet-title {
+      margin-top: 9px;
+      font-family: var(--serif);
+      font-size: 34px;
+      font-weight: 600;
+    }
+
+    .banquet-description {
+      max-width: 420px;
+      margin-top: 12px;
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .banquet-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .banquet-features span {
+      padding: 5px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 11px;
+    }
+
+    .banquet-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .banquet-price {
+      display: grid;
+      gap: 2px;
+    }
+
+    .banquet-price span {
+      color: rgba(255, 255, 255, 0.46);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+    }
+
+    .banquet-price strong {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .banquet-bottom .btn {
+      min-height: 44px;
+      padding-inline: 18px;
+      font-size: 12px;
+    }
+
+    .story {
+      overflow: hidden;
+      background: var(--paper-deep);
+    }
+
+    .story::before {
+      position: absolute;
+      top: 84px;
+      left: -60px;
+      color: rgba(162, 59, 45, 0.045);
+      content: "味";
+      font-family: var(--serif);
+      font-size: 390px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: minmax(360px, 0.9fr) minmax(0, 1.1fr);
+      align-items: center;
+      gap: 82px;
+    }
+
+    .story-visual {
+      position: relative;
+      padding: 0 44px 44px 0;
+    }
+
+    .story-photo {
+      position: relative;
+      height: 590px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #cab895, #7a5137);
+      border-radius: 32px 150px 32px 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .story-quote {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 220px;
+      padding: 24px;
+      color: var(--white);
+      background: var(--vermilion);
+      border-radius: 16px;
+      box-shadow: 0 18px 46px rgba(97, 37, 27, 0.22);
+    }
+
+    .story-quote strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .story-quote span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+    }
+
+    .story-copy > p {
+      max-width: 600px;
+      margin-top: 24px;
+      color: var(--muted);
+      line-height: 1.95;
+    }
+
+    .story-copy > p + p {
+      margin-top: 16px;
+    }
+
+    .story-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 1px solid var(--line);
+    }
+
+    .story-stat strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 31px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .story-stat span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .space {
+      background: var(--paper);
+    }
+
+    .space-grid {
+      display: grid;
+      height: 690px;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #bd9c78, #493328);
+      border-radius: var(--radius-md);
+    }
+
+    .gallery-item:first-child {
+      grid-row: 1 / span 2;
+      border-radius: 26px 110px 26px 26px;
+    }
+
+    .gallery-item img {
+      transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.045);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      z-index: 2;
+      right: 18px;
+      bottom: 18px;
+      left: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 15px;
+      color: var(--white);
+      background: rgba(25, 21, 17, 0.54);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 999px;
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .gallery-caption span:last-child {
+      color: rgba(255, 255, 255, 0.57);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+    }
+
+    .reviews {
+      background:
+        linear-gradient(180deg, rgba(255, 253, 248, 0.18), transparent 70%),
+        var(--paper-deep);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .review-card {
+      display: flex;
+      min-height: 320px;
+      flex-direction: column;
+      padding: 30px;
+      background: rgba(255, 253, 248, 0.66);
+      border: 1px solid rgba(29, 27, 24, 0.09);
+      border-radius: var(--radius-md);
+    }
+
+    .review-stars {
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: 0.18em;
+    }
+
+    .review-text {
+      margin-top: 24px;
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.9;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .avatar {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      place-items: center;
+      color: var(--white);
+      background: var(--vermilion);
+      border-radius: 50%;
+      font-family: var(--serif);
+      font-size: 14px;
+    }
+
+    .review-author strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .review-author span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .reserve-cta {
+      overflow: hidden;
+      padding: 0;
+      color: var(--white);
+      background: var(--vermilion-dark);
+    }
+
+    .reserve-cta::before {
+      position: absolute;
+      top: -180px;
+      right: -80px;
+      width: 480px;
+      height: 480px;
+      content: "";
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+    }
+
+    .reserve-cta::after {
+      position: absolute;
+      top: -78px;
+      right: 18px;
+      width: 280px;
+      height: 280px;
+      content: "";
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 50%;
+    }
+
+    .reserve-cta-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 46px;
+      padding: 82px 0;
+    }
+
+    .reserve-cta .eyebrow {
+      color: #f1c98a;
+    }
+
+    .reserve-cta h2 {
+      max-width: 730px;
+      margin-top: 14px;
+      font-family: var(--serif);
+      font-size: clamp(38px, 5.2vw, 64px);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 1.18;
+    }
+
+    .reserve-cta p {
+      max-width: 620px;
+      margin-top: 16px;
+      color: rgba(255, 255, 255, 0.67);
+    }
+
+    .reserve-actions {
+      display: grid;
+      gap: 12px;
+      min-width: 190px;
+    }
+
+    .reserve-contact {
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .site-footer {
+      padding: 66px 0 28px;
+      color: rgba(255, 255, 255, 0.68);
+      background: #171513;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr 0.7fr 1fr;
+      gap: 52px;
+      padding-bottom: 52px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-brand .brand-mark {
+      color: var(--vermilion);
+      background: var(--white);
+    }
+
+    .footer-brand .brand-name {
+      color: var(--white);
+    }
+
+    .footer-brand .brand-en {
+      color: rgba(255, 255, 255, 0.42);
+    }
+
+    .footer-about {
+      max-width: 320px;
+      margin-top: 22px;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .footer-column h3 {
+      margin-bottom: 18px;
+      color: var(--white);
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .footer-column p,
+    .footer-column a {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .footer-column a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 24px;
+      font-size: 11px;
+    }
+
+    .footer-bottom a {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .modal {
+      position: fixed;
+      z-index: 3000;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 220ms ease;
+    }
+
+    .modal.is-open {
+      opacity: 1;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(16, 13, 10, 0.72);
+      backdrop-filter: blur(7px);
+    }
+
+    .modal-panel {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 720px);
+      max-height: min(90vh, 860px);
+      padding: 38px;
+      overflow-y: auto;
+      background: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 26px;
+      box-shadow: 0 34px 100px rgba(0, 0, 0, 0.36);
+      transform: translateY(18px) scale(0.985);
+      transition: transform 220ms ease;
+    }
+
+    .modal.is-open .modal-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      z-index: 2;
+      top: 18px;
+      right: 18px;
+      display: grid;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      place-items: center;
+      color: var(--muted);
+      background: var(--paper);
+      border: 0;
+      border-radius: 50%;
+      font-size: 25px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      color: var(--vermilion);
+    }
+
+    .modal-heading {
+      padding-right: 54px;
+    }
+
+    .modal-heading h2 {
+      margin-top: 9px;
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1.25;
+    }
+
+    .modal-heading p {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .reservation-form {
+      margin-top: 28px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .form-field {
+      display: block;
+    }
+
+    .form-field--full {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      color: var(--ink-soft);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .form-label b {
+      color: var(--vermilion);
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      min-height: 50px;
+      padding: 12px 14px;
+      color: var(--ink);
+      background: #faf7f1;
+      border: 1px solid rgba(29, 27, 24, 0.15);
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+    }
+
+    .form-field textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      background: var(--white);
+      border-color: var(--vermilion);
+      box-shadow: 0 0 0 4px rgba(162, 59, 45, 0.09);
+    }
+
+    .form-field.has-error input,
+    .form-field.has-error select,
+    .form-field.has-error textarea {
+      border-color: #b3261e;
+      box-shadow: 0 0 0 4px rgba(179, 38, 30, 0.08);
+    }
+
+    .field-error {
+      display: block;
+      min-height: 18px;
+      margin-top: 5px;
+      color: #a62018;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .form-note {
+      grid-column: 1 / -1;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .reservation-success {
+      padding: 38px 12px 16px;
+      text-align: center;
+    }
+
+    .success-mark {
+      display: grid;
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      place-items: center;
+      color: var(--white);
+      background: var(--vermilion);
+      border-radius: 50%;
+      font-size: 30px;
+      box-shadow: 0 16px 38px rgba(162, 59, 45, 0.25);
+    }
+
+    .reservation-success h2 {
+      font-family: var(--serif);
+      font-size: 34px;
+      font-weight: 600;
+    }
+
+    .reservation-success p {
+      max-width: 480px;
+      margin: 14px auto 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .success-phone {
+      display: inline-flex;
+      margin-top: 24px;
+      color: var(--vermilion);
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .success-close {
+      margin-top: 25px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 90ms;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 180ms;
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 0.92fr) minmax(410px, 1.08fr);
+        gap: 34px;
+      }
+
+      .hero-note {
+        right: 0;
+      }
+
+      .site-nav {
+        gap: 24px;
+      }
+
+      .phone-link {
+        display: none;
+      }
+    }
+
+    @media (max-width: 940px) {
+      :root {
+        --header-height: 70px;
+      }
+
+      .nav-reserve {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: block;
+        order: 3;
+      }
+
+      .site-nav {
+        position: absolute;
+        top: calc(100% + 1px);
+        right: 24px;
+        left: 24px;
+        display: grid;
+        gap: 0;
+        padding: 12px;
+        visibility: hidden;
+        opacity: 0;
+        background: rgba(255, 253, 248, 0.98);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 22px 60px rgba(38, 28, 18, 0.16);
+        transform: translateY(-8px);
+        transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+      }
+
+      .site-nav.is-open {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .nav-link {
+        padding: 13px 12px;
+        border-radius: 10px;
+      }
+
+      .nav-link:hover {
+        background: var(--paper);
+      }
+
+      .nav-link::after {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 128px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 46px;
+      }
+
+      .hero-copy {
+        max-width: 720px;
+        padding-bottom: 0;
+      }
+
+      .hero-visual {
+        min-height: 560px;
+      }
+
+      .hero-main {
+        width: 86%;
+        height: 520px;
+      }
+
+      .hero-small {
+        bottom: 4px;
+      }
+
+      .section-heading {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .dish-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .dish-card:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .dish-card:last-child {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .dish-card:last-child .dish-image {
+        height: 100%;
+        min-height: 330px;
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 58px;
+      }
+
+      .story-visual {
+        max-width: 620px;
+      }
+
+      .space-grid {
+        height: auto;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: none;
+      }
+
+      .gallery-item {
+        min-height: 300px;
+      }
+
+      .gallery-item:first-child {
+        grid-row: auto;
+      }
+
+      .reviews-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .review-card {
+        min-height: 260px;
+      }
+
+      .reserve-cta-inner {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .reserve-actions {
+        width: min(100%, 300px);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        width: min(calc(100% - 32px), 1200px);
+      }
+
+      .brand-en {
+        display: none;
+      }
+
+      .brand-name {
+        font-size: 19px;
+      }
+
+      .hero {
+        padding-top: 108px;
+        padding-bottom: 62px;
+      }
+
+      .hero-title {
+        font-size: clamp(49px, 16vw, 66px);
+      }
+
+      .hero-intro {
+        font-size: 15px;
+      }
+
+      .hero-actions .btn {
+        flex: 1 1 150px;
+      }
+
+      .hero-meta {
+        grid-template-columns: 1fr 1fr;
+        margin-top: 38px;
+      }
+
+      .hero-meta > div:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .hero-visual {
+        min-height: 430px;
+      }
+
+      .hero-main {
+        width: 90%;
+        height: 408px;
+        border-radius: 110px 110px 24px 24px;
+      }
+
+      .hero-small {
+        width: 45%;
+        height: 142px;
+        border-width: 6px;
+        border-radius: 70px 70px 16px 16px;
+      }
+
+      .hero-seal {
+        top: 42px;
+        left: 4%;
+        width: 72px;
+        height: 72px;
+        font-size: 11px;
+      }
+
+      .hero-note {
+        right: -2px;
+        bottom: 35px;
+        width: 170px;
+        padding: 14px 16px;
+      }
+
+      .hero-note strong {
+        font-size: 14px;
+      }
+
+      .brand-strip-inner {
+        min-height: 66px;
+        justify-content: center;
+        gap: 12px;
+        font-size: 12px;
+        letter-spacing: 0.09em;
+      }
+
+      .brand-strip-inner span:nth-of-type(3),
+      .brand-strip-inner i:nth-of-type(3),
+      .brand-strip-inner span:nth-of-type(4),
+      .brand-strip-inner i:nth-of-type(2),
+      .brand-strip-inner i:nth-of-type(4) {
+        display: none;
+      }
+
+      .section {
+        padding: 82px 0;
+      }
+
+      .section-heading {
+        margin-bottom: 34px;
+      }
+
+      .section-title {
+        font-size: 39px;
+      }
+
+      .dish-grid,
+      .banquet-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dish-card:last-child {
+        display: block;
+        grid-column: auto;
+      }
+
+      .dish-card:last-child .dish-image {
+        height: 280px;
+        min-height: 0;
+      }
+
+      .dish-image {
+        height: 265px;
+      }
+
+      .banquet-card,
+      .banquet-content {
+        min-height: 470px;
+      }
+
+      .banquet-content {
+        padding: 28px;
+      }
+
+      .banquet-bottom {
+        align-items: flex-end;
+      }
+
+      .story-grid {
+        gap: 42px;
+      }
+
+      .story-visual {
+        padding: 0 25px 30px 0;
+      }
+
+      .story-photo {
+        height: 440px;
+        border-radius: 26px 100px 26px 26px;
+      }
+
+      .story-quote {
+        width: 185px;
+        padding: 18px;
+      }
+
+      .story-quote strong {
+        font-size: 20px;
+      }
+
+      .story-stats {
+        gap: 10px;
+      }
+
+      .story-stat strong {
+        font-size: 25px;
+      }
+
+      .space-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item {
+        min-height: 240px;
+      }
+
+      .gallery-item:first-child {
+        min-height: 360px;
+      }
+
+      .review-card {
+        padding: 24px;
+      }
+
+      .review-text {
+        font-size: 16px;
+      }
+
+      .reserve-cta-inner {
+        padding: 70px 0;
+      }
+
+      .reserve-cta h2 {
+        font-size: 39px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+
+      .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .modal {
+        align-items: end;
+        padding: 10px;
+      }
+
+      .modal-panel {
+        width: 100%;
+        max-height: 94vh;
+        padding: 28px 20px 22px;
+        border-radius: 22px;
+      }
+
+      .modal-heading h2 {
+        font-size: 30px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-field--full,
+      .form-note {
+        grid-column: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+  <header class="site-header" id="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="#home" aria-label="悦膳首页">
+        <span class="brand-mark" aria-hidden="true">悦</span>
+        <span class="brand-copy">
+          <span class="brand-name">悦膳</span>
+          <span class="brand-en">YUE SHAN</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label="主导航">
+        <a class="nav-link" href="#signature" aria-current="page">招牌味道</a>
+        <a class="nav-link" href="#banquet">宴席套餐</a>
+        <a class="nav-link" href="#story">悦膳故事</a>
+        <a class="nav-link" href="#space">餐厅环境</a>
+        <a class="nav-link" href="#reviews">食客口碑</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="phone-link" href="tel:02162888899">021-6288 8899</a>
+        <button class="btn btn--primary nav-reserve" type="button" data-open-reservation>立即订座</button>
+        <button class="mobile-toggle" id="mobile-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="打开导航菜单">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Modern Chinese Dining</p>
+          <h1 class="hero-title">一席东方味<br><em>宴四方来客</em></h1>
+          <p class="hero-intro">顺时而食，以江南风物入席。我们以克制的调味呈现食材本真，也为每一次团聚留出从容与体面。</p>
+          <div class="hero-actions">
+            <button class="btn btn--primary" type="button" data-open-reservation>立即订座 <span class="arrow" aria-hidden="true">→</span></button>
+            <a class="btn btn--ghost" href="#signature">浏览菜单</a>
+          </div>
+          <div class="hero-meta" aria-label="餐厅概览">
+            <div>
+              <span>营业时间</span>
+              <strong>11:00 — 21:30</strong>
+            </div>
+            <div>
+              <span>餐厅地址</span>
+              <strong>静安区 · 愚园路 618 号</strong>
+            </div>
+            <div>
+              <span>雅间服务</span>
+              <strong>6 间独立包房</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal reveal-delay-1">
+          <figure class="hero-main">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;fit=crop&amp;w=1100&amp;q=84" alt="悦膳餐厅温暖雅致的用餐空间" fetchpriority="high">
+          </figure>
+          <div class="hero-seal" aria-hidden="true">时令 · 本味</div>
+          <figure class="hero-small">
+            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="手工制作的中式点心" loading="lazy">
+          </figure>
+          <aside class="hero-note">
+            <span>今日推荐</span>
+            <strong>糟香六月黄</strong>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <div class="brand-strip" aria-hidden="true">
+      <div class="container brand-strip-inner">
+        <span>顺时而食</span>
+        <i></i>
+        <span>江南本味</span>
+        <i></i>
+        <span>一席款待</span>
+        <i></i>
+        <span>宾主尽欢</span>
+      </div>
+    </div>
+
+    <section class="section signature" id="signature">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Signature Dishes</p>
+            <h2 class="section-title">一席一味，<em>各有讲究</em></h2>
+          </div>
+          <p>不追逐浓烈，只让鲜、香、嫩、润在恰当的时候相遇。每一道招牌菜，都从时令与食材本身出发。</p>
+        </div>
+
+        <div class="dish-grid">
+          <article class="dish-card reveal">
+            <div class="dish-image">
+              <span class="dish-index">01</span>
+              <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&amp;fit=crop&amp;w=900&amp;q=82" alt="清鲜爽嫩的龙井虾仁" loading="lazy">
+            </div>
+            <div class="dish-body">
+              <div class="dish-topline">
+                <h3 class="dish-title">龙井虾仁</h3>
+                <span class="dish-price">¥ 128</span>
+              </div>
+              <p class="dish-description">明前龙井轻焙出香，搭配手剥河虾仁，清鲜回甘，是春日餐桌上最轻盈的一味。</p>
+              <span class="dish-tag">春季限定</span>
+            </div>
+          </article>
+
+          <article class="dish-card reveal reveal-delay-1">
+            <div class="dish-image">
+              <span class="dish-index">02</span>
+              <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;fit=crop&amp;w=900&amp;q=82" alt="慢火烹制的黑松露和牛" loading="lazy">
+            </div>
+            <div class="dish-body">
+              <div class="dish-topline">
+                <h3 class="dish-title">黑松露和牛</h3>
+                <span class="dish-price">¥ 268</span>
+              </div>
+              <p class="dish-description">和牛以文火慢煨至酥软，黑松露的木质香气与醇厚肉汁层层交叠，丰润不腻。</p>
+              <span class="dish-tag">主厨推荐</span>
+            </div>
+          </article>
+
+          <article class="dish-card reveal reveal-delay-2">
+            <div class="dish-image">
+              <span class="dish-index">03</span>
+              <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" alt="金汤花胶黄鱼" loading="lazy">
+            </div>
+            <div class="dish-body">
+              <div class="dish-topline">
+                <h3 class="dish-title">金汤花胶黄鱼</h3>
+                <span class="dish-price">¥ 198</span>
+              </div>
+              <p class="dish-description">黄鱼鲜嫩，花胶软糯，以金黄清汤托住海味。入口温润，适合宴席中段慢慢品味。</p>
+              <span class="dish-tag">宴客首选</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section banquet" id="banquet">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Private Banquet</p>
+            <h2 class="section-title">宴有分寸，<em>款待有形</em></h2>
+          </div>
+          <p>从菜单搭配、上菜节奏到席间服务，为家宴与商务宴请提供恰到好处的安排。</p>
+        </div>
+
+        <div class="banquet-grid">
+          <article class="banquet-card reveal">
+            <div class="banquet-bg">
+              <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&amp;fit=crop&amp;w=1100&amp;q=82" alt="家庭聚餐使用的圆桌雅间" loading="lazy">
+            </div>
+            <div class="banquet-content">
+              <span class="banquet-kicker">FAMILY GATHERING</span>
+              <h3 class="banquet-title">合家欢宴</h3>
+              <p class="banquet-description">适合家庭团聚与长辈寿宴，八道式菜单兼顾经典口味与时令新意。</p>
+              <div class="banquet-features">
+                <span>6–8 位</span>
+                <span>8 道菜</span>
+                <span>独立雅间</span>
+              </div>
+              <div class="banquet-bottom">
+                <div class="banquet-price">
+                  <span>参考价</span>
+                  <strong>¥ 1,288 / 桌</strong>
+                </div>
+                <button class="btn btn--light" type="button" data-open-reservation>预订此套餐</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="banquet-card reveal reveal-delay-1">
+            <div class="banquet-bg">
+              <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&amp;fit=crop&amp;w=1100&amp;q=82" alt="适合商务宴请的精致餐厅包间" loading="lazy">
+            </div>
+            <div class="banquet-content">
+              <span class="banquet-kicker">BUSINESS DINING</span>
+              <h3 class="banquet-title">雅集商务宴</h3>
+              <p class="banquet-description">兼顾私密与体面，十道式臻选菜单、专属茶艺与分餐服务可按需安排。</p>
+              <div class="banquet-features">
+                <span>10–12 位</span>
+                <span>10 道菜</span>
+                <span>专属服务</span>
+              </div>
+              <div class="banquet-bottom">
+                <div class="banquet-price">
+                  <span>参考价</span>
+                  <strong>¥ 2,688 / 桌</strong>
+                </div>
+                <button class="btn btn--light" type="button" data-open-reservation>预订此套餐</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section story" id="story">
+      <div class="container story-grid">
+        <div class="story-visual reveal">
+          <figure class="story-photo">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&amp;fit=crop&amp;w=1000&amp;q=84" alt="摆放于餐桌上的时令中式菜肴" loading="lazy">
+          </figure>
+          <div class="story-quote">
+            <strong>“不时不食，<br>不鲜不烹。”</strong>
+            <span>悦膳 · 料理理念</span>
+          </div>
+        </div>
+
+        <div class="story-copy reveal reveal-delay-1">
+          <p class="eyebrow">Our Story</p>
+          <h2 class="section-title">让食物，<em>顺着时间生长</em></h2>
+          <p>悦膳始于 2014 年，从一间只有八张桌子的小馆出发，坚持跟着二十四节气寻找食材。春笋、夏藕、秋蟹、冬菌，都被认真记在厨房的季节表上。</p>
+          <p>我们相信，现代中餐不是推翻传统，而是让老味道拥有更清晰、轻盈的表达。少一分修饰，多一分食材本来的温度。</p>
+          <div class="story-stats">
+            <div class="story-stat">
+              <strong>12 年</strong>
+              <span>专注现代中餐</span>
+            </div>
+            <div class="story-stat">
+              <strong>28 道</strong>
+              <span>时令菜单轮换</span>
+            </div>
+            <div class="story-stat">
+              <strong>6 间</strong>
+              <span>独立宴客雅间</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section space" id="space">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">The Space</p>
+            <h2 class="section-title">留白之间，<em>自有温度</em></h2>
+          </div>
+          <p>木、石、纸与暖光构成安静的空间底色。大厅适合轻松相聚，独立雅间则为重要时刻保留私密。</p>
+        </div>
+
+        <div class="space-grid">
+          <figure class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&amp;fit=crop&amp;w=1200&amp;q=82" alt="悦膳宽敞明亮的主用餐区" loading="lazy">
+            <figcaption class="gallery-caption">
+              <span>主用餐区</span>
+              <span>自然光 · 木与石</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item reveal reveal-delay-1">
+            <img src="https://images.unsplash.com/photo-1516211697506-8360dbcfe9a4?auto=format&amp;fit=crop&amp;w=800&amp;q=82" alt="餐厅内细致的餐桌陈设" loading="lazy">
+            <figcaption class="gallery-caption">
+              <span>细节陈设</span>
+              <span>一席一器</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item reveal reveal-delay-2">
+            <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&amp;fit=crop&amp;w=800&amp;q=82" alt="烹饪完成并精心摆盘的时令菜品" loading="lazy">
+            <figcaption class="gallery-caption">
+              <span>开放料理</span>
+              <span>看得见的新鲜</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item reveal reveal-delay-1">
+            <img src="https://images.unsplash.com/photo-1541544741938-0af808871cc0?auto=format&amp;fit=crop&amp;w=800&amp;q=82" alt="适合宴请的独立用餐雅间" loading="lazy">
+            <figcaption class="gallery-caption">
+              <span>独立雅间</span>
+              <span>6–12 位</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item reveal reveal-delay-2">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&amp;fit=crop&amp;w=800&amp;q=82" alt="餐桌上丰富的时令菜品" loading="lazy">
+            <figcaption class="gallery-caption">
+              <span>宴客圆桌</span>
+              <span>从容落座</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reviews" id="reviews">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Guest Words</p>
+            <h2 class="section-title">席散之后，<em>还有余味</em></h2>
+          </div>
+          <p>一餐饭真正留下的，不只是味道，还有被妥帖照顾的时刻。</p>
+        </div>
+
+        <div class="reviews-grid">
+          <article class="review-card reveal">
+            <div class="review-stars" aria-label="5 星评价">★★★★★</div>
+            <blockquote class="review-text">“带父母来吃寿宴，菜不重口却很有层次。服务分寸拿捏得刚好，长辈很满意。”</blockquote>
+            <div class="review-author">
+              <span class="avatar" aria-hidden="true">林</span>
+              <span>
+                <strong>林女士</strong>
+                <span>家庭寿宴 · 8 人</span>
+              </span>
+            </div>
+          </article>
+
+          <article class="review-card reveal reveal-delay-1">
+            <div class="review-stars" aria-label="5 星评价">★★★★★</div>
+            <blockquote class="review-text">“商务晚宴选在悦膳很稳妥，包间安静，上菜节奏和菜品讲解都让人省心。”</blockquote>
+            <div class="review-author">
+              <span class="avatar" aria-hidden="true">周</span>
+              <span>
+                <strong>周先生</strong>
+                <span>商务宴请 · 10 人</span>
+              </span>
+            </div>
+          </article>
+
+          <article class="review-card reveal reveal-delay-2">
+            <div class="review-stars" aria-label="5 星评价">★★★★★</div>
+            <blockquote class="review-text">“没有刻意堆叠名贵食材，但每道菜都很清楚、很新鲜。金汤黄鱼尤其让人惦记。”</blockquote>
+            <div class="review-author">
+              <span class="avatar" aria-hidden="true">许</span>
+              <span>
+                <strong>许先生</strong>
+                <span>朋友小聚 · 4 人</span>
+              </span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="reserve-cta" id="reserve">
+      <div class="container reserve-cta-inner">
+        <div class="reveal">
+          <p class="eyebrow">Reservation</p>
+          <h2>把重要的相聚，交给一席好饭。</h2>
+          <p>建议提前 1–3 天预订。如需指定雅间、安排菜单或有忌口需求，请在预订时告诉我们。</p>
+        </div>
+        <div class="reserve-actions reveal reveal-delay-1">
+          <button class="btn btn--light" type="button" data-open-reservation>在线订座 <span class="arrow" aria-hidden="true">→</span></button>
+          <a class="btn btn--outline-light" href="tel:02162888899">电话咨询</a>
+          <span class="reserve-contact">每日 10:30 — 21:00</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#home" aria-label="悦膳首页">
+            <span class="brand-mark" aria-hidden="true">悦</span>
+            <span class="brand-copy">
+              <span class="brand-name">悦膳</span>
+              <span class="brand-en">YUE SHAN</span>
+            </span>
+          </a>
+          <p class="footer-about">以江南风物为灵感，以现代手法演绎中餐本味。为家宴、商务与每一次值得纪念的相聚，认真准备一席。</p>
+        </div>
+
+        <div class="footer-column">
+          <h3>快速导航</h3>
+          <a href="#signature">招牌味道</a>
+          <a href="#banquet">宴席套餐</a>
+          <a href="#story">悦膳故事</a>
+          <a href="#space">餐厅环境</a>
+        </div>
+
+        <div class="footer-column">
+          <h3>营业信息</h3>
+          <p>午市 11:00 — 14:00</p>
+          <p>晚市 17:00 — 21:30</p>
+          <p>全年无休</p>
+        </div>
+
+        <div class="footer-column">
+          <h3>联系我们</h3>
+          <a href="tel:02162888899">021-6288 8899</a>
+          <a href="mailto:hello@yueshan.example">hello@yueshan.example</a>
+          <p>上海市静安区愚园路 618 号</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="current-year">2026</span> 悦膳现代中餐厅 · 示例网站</span>
+        <span><a href="#home">返回顶部 ↑</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal" id="reservation-modal" role="dialog" aria-modal="true" aria-labelledby="reservation-title" hidden>
+    <div class="modal-backdrop" data-close-reservation></div>
+    <div class="modal-panel">
+      <button class="modal-close" type="button" aria-label="关闭订座窗口" data-close-reservation>×</button>
+
+      <div id="reservation-form-view">
+        <div class="modal-heading">
+          <p class="eyebrow">Table Reservation</p>
+          <h2 id="reservation-title">预订一席</h2>
+          <p>请填写以下信息，我们将根据用餐需求为您安排合适的席位。</p>
+        </div>
+
+        <form class="reservation-form" id="reservation-form" novalidate>
+          <div class="form-grid">
+            <label class="form-field" for="reservation-name">
+              <span class="form-label">姓名 <b>*</b></span>
+              <input id="reservation-name" name="name" type="text" autocomplete="name" placeholder="请输入您的称呼" aria-describedby="name-error">
+              <span class="field-error" id="name-error" aria-live="polite"></span>
+            </label>
+
+            <label class="form-field" for="reservation-phone">
+              <span class="form-label">手机号 <b>*</b></span>
+              <input id="reservation-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="11" placeholder="请输入 11 位手机号" aria-describedby="phone-error">
+              <span class="field-error" id="phone-error" aria-live="polite"></span>
+            </label>
+
+            <label class="form-field" for="reservation-date">
+              <span class="form-label">到店日期 <b>*</b></span>
+              <input id="reservation-date" name="date" type="date" aria-describedby="date-error">
+              <span class="field-error" id="date-error" aria-live="polite"></span>
+            </label>
+
+            <label class="form-field" for="reservation-time">
+              <span class="form-label">到店时间 <b>*</b></span>
+              <select id="reservation-time" name="time" aria-describedby="time-error">
+                <option value="">请选择时间</option>
+                <option value="11:30">11:30</option>
+                <option value="12:00">12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="17:30">17:30</option>
+                <option value="18:00">18:00</option>
+                <option value="18:30">18:30</option>
+                <option value="19:00">19:00</option>
+                <option value="19:30">19:30</option>
+              </select>
+              <span class="field-error" id="time-error" aria-live="polite"></span>
+            </label>
+
+            <label class="form-field" for="reservation-guests">
+              <span class="form-label">用餐人数 <b>*</b></span>
+              <select id="reservation-guests" name="guests" aria-describedby="guests-error">
+                <option value="">请选择人数</option>
+                <option value="1">1 位</option>
+                <option value="2">2 位</option>
+                <option value="3">3 位</option>
+                <option value="4">4 位</option>
+                <option value="5">5 位</option>
+                <option value="6">6 位</option>
+                <option value="7">7 位</option>
+                <option value="8">8 位</option>
+                <option value="9">9 位</option>
+                <option value="10">10 位</option>
+                <option value="11">11 位</option>
+                <option value="12">12 位</option>
+                <option value="13">12 位以上（请致电）</option>
+              </select>
+              <span class="field-error" id="guests-error" aria-live="polite"></span>
+            </label>
+
+            <label class="form-field" for="reservation-occasion">
+              <span class="form-label">用餐场景</span>
+              <select id="reservation-occasion" name="occasion">
+                <option value="">请选择场景（选填）</option>
+                <option value="家庭聚餐">家庭聚餐</option>
+                <option value="商务宴请">商务宴请</option>
+                <option value="朋友小聚">朋友小聚</option>
+                <option value="生日寿宴">生日寿宴</option>
+                <option value="其他">其他</option>
+              </select>
+              <span class="field-error" aria-hidden="true"></span>
+            </label>
+
+            <label class="form-field form-field--full" for="reservation-notes">
+              <span class="form-label">特殊需求</span>
+              <textarea id="reservation-notes" name="notes" maxlength="200" placeholder="如忌口、儿童餐椅、指定雅间等，可在此说明"></textarea>
+              <span class="field-error" aria-hidden="true"></span>
+            </label>
+
+            <p class="form-note">提交即表示您同意我们仅将以上信息用于本次预订联系。此页面为前端演示，不会向服务器发送数据。</p>
+
+            <button class="btn btn--primary form-submit" type="submit">提交预订需求 <span class="arrow" aria-hidden="true">→</span></button>
+          </div>
+        </form>
+      </div>
+
+      <div class="reservation-success" id="reservation-success" tabindex="-1" hidden>
+        <div class="success-mark" aria-hidden="true">✓</div>
+        <h2>预订需求已记录</h2>
+        <p>当前为前端演示模式。为确保席位确认，请致电门店，我们将为您完成最终预订。</p>
+        <a class="success-phone" href="tel:02162888899">021-6288 8899</a>
+        <div>
+          <button class="btn btn--primary success-close" type="button" data-close-reservation>关闭窗口</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var header = document.getElementById('site-header');
+      var navToggle = document.getElementById('mobile-toggle');
+      var siteNav = document.getElementById('site-nav');
+      var modal = document.getElementById('reservation-modal');
+      var formView = document.getElementById('reservation-form-view');
+      var successView = document.getElementById('reservation-success');
+      var form = document.getElementById('reservation-form');
+      var dateInput = document.getElementById('reservation-date');
+      var guestsSelect = document.getElementById('reservation-guests');
+      var lastFocusedElement = null;
+      var closeTimer = null;
+
+      function updateHeader() {
+        header.classList.toggle('is-scrolled', window.scrollY > 18);
+      }
+
+      updateHeader();
+      window.addEventListener('scroll', updateHeader, { passive: true });
+
+      function setNavState(isOpen) {
+        siteNav.classList.toggle('is-open', isOpen);
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+        navToggle.setAttribute('aria-label', isOpen ? '关闭导航菜单' : '打开导航菜单');
+      }
+
+      navToggle.addEventListener('click', function () {
+        setNavState(!siteNav.classList.contains('is-open'));
+      });
+
+      siteNav.addEventListener('click', function (event) {
+        if (event.target.closest('a')) {
+          setNavState(false);
+        }
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!siteNav.classList.contains('is-open')) {
+          return;
+        }
+        if (!siteNav.contains(event.target) && !navToggle.contains(event.target)) {
+          setNavState(false);
+        }
+      });
+
+      function getLocalDateString() {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = String(now.getMonth() + 1).padStart(2, '0');
+        var day = String(now.getDate()).padStart(2, '0');
+        return year + '-' + month + '-' + day;
+      }
+
+      function setDateConstraints() {
+        var today = getLocalDateString();
+        dateInput.min = today;
+        if (!dateInput.value || dateInput.value < today) {
+          dateInput.value = today;
+        }
+      }
+
+      setDateConstraints();
+
+      function resetModalView() {
+        form.reset();
+        formView.hidden = false;
+        successView.hidden = true;
+        clearAllErrors();
+        setDateConstraints();
+      }
+
+      function getFocusableElements() {
+        var selector = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+        return Array.prototype.slice.call(modal.querySelectorAll(selector)).filter(function (element) {
+          return !element.hidden && element.offsetParent !== null;
+        });
+      }
+
+      function openModal(trigger) {
+        lastFocusedElement = trigger || document.activeElement;
+        resetModalView();
+
+        if (closeTimer) {
+          window.clearTimeout(closeTimer);
+        }
+
+        modal.hidden = false;
+        document.body.classList.add('modal-open');
+
+        window.requestAnimationFrame(function () {
+          modal.classList.add('is-open');
+          document.getElementById('reservation-name').focus();
+        });
+      }
+
+      function closeModal() {
+        modal.classList.remove('is-open');
+        document.body.classList.remove('modal-open');
+
+        closeTimer = window.setTimeout(function () {
+          modal.hidden = true;
+          if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+            lastFocusedElement.focus();
+          }
+        }, 220);
+      }
+
+      document.querySelectorAll('[data-open-reservation]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          openModal(button);
+        });
+      });
+
+      document.querySelectorAll('[data-close-reservation]').forEach(function (button) {
+        button.addEventListener('click', closeModal);
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          if (!modal.hidden) {
+            closeModal();
+            return;
+          }
+          if (siteNav.classList.contains('is-open')) {
+            setNavState(false);
+            navToggle.focus();
+          }
+        }
+
+        if (event.key !== 'Tab' || modal.hidden) {
+          return;
+        }
+
+        var focusableElements = getFocusableElements();
+        if (!focusableElements.length) {
+          event.preventDefault();
+          return;
+        }
+
+        var firstElement = focusableElements[0];
+        var lastElement = focusableElements[focusableElements.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        } else if (!event.shiftKey && document.activeElement === lastElement) {
+          event.preventDefault();
+          firstElement.focus();
+        }
+      });
+
+      function fieldWrapper(input) {
+        return input.closest('.form-field');
+      }
+
+      function setError(input, message) {
+        var wrapper = fieldWrapper(input);
+        var error = document.getElementById(input.id + '-error') || wrapper.querySelector('.field-error');
+        wrapper.classList.add('has-error');
+        input.setAttribute('aria-invalid', 'true');
+        if (error) {
+          error.textContent = message;
+        }
+      }
+
+      function clearError(input) {
+        var wrapper = fieldWrapper(input);
+        if (!wrapper) {
+          return;
+        }
+        var error = document.getElementById(input.id + '-error') || wrapper.querySelector('.field-error');
+        wrapper.classList.remove('has-error');
+        input.removeAttribute('aria-invalid');
+        if (error) {
+          error.textContent = '';
+        }
+      }
+
+      function clearAllErrors() {
+        form.querySelectorAll('[aria-invalid="true"]').forEach(function (input) {
+          clearError(input);
+        });
+      }
+
+      form.addEventListener('input', function (event) {
+        if (event.target.matches('input, select, textarea')) {
+          clearError(event.target);
+        }
+      });
+
+      form.addEventListener('change', function (event) {
+        if (event.target === guestsSelect) {
+          clearError(guestsSelect);
+          if (guestsSelect.value === '13') {
+            setError(guestsSelect, '超过 12 人请致电 021-6288 8899 安排宴席。');
+          }
+        }
+      });
+
+      function validateForm() {
+        var firstInvalid = null;
+
+        function markInvalid(input, message) {
+          setError(input, message);
+          if (!firstInvalid) {
+            firstInvalid = input;
+          }
+        }
+
+        var nameInput = document.getElementById('reservation-name');
+        var phoneInput = document.getElementById('reservation-phone');
+        var timeInput = document.getElementById('reservation-time');
+        var today = getLocalDateString();
+
+        if (nameInput.value.trim().length < 1) {
+          markInvalid(nameInput, '请输入您的姓名或称呼。');
+        }
+
+        if (!/^1[3-9]\d{9}$/.test(phoneInput.value.trim())) {
+          markInvalid(phoneInput, '请输入有效的 11 位中国大陆手机号。');
+        }
+
+        if (!dateInput.value) {
+          markInvalid(dateInput, '请选择到店日期。');
+        } else if (dateInput.value < today) {
+          markInvalid(dateInput, '到店日期不能早于今天。');
+        }
+
+        if (!timeInput.value) {
+          markInvalid(timeInput, '请选择到店时间。');
+        }
+
+        if (!guestsSelect.value) {
+          markInvalid(guestsSelect, '请选择用餐人数。');
+        } else if (guestsSelect.value === '13') {
+          markInvalid(guestsSelect, '超过 12 人请致电 021-6288 8899 安排宴席。');
+        }
+
+        return firstInvalid;
+      }
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        clearAllErrors();
+
+        var firstInvalid = validateForm();
+        if (firstInvalid) {
+          firstInvalid.focus();
+          return;
+        }
+
+        form.reset();
+        setDateConstraints();
+        formView.hidden = true;
+        successView.hidden = false;
+        successView.focus();
+      });
+
+      document.querySelectorAll('img').forEach(function (image) {
+        image.addEventListener('error', function () {
+          image.classList.add('is-broken');
+        });
+      });
+
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var revealElements = document.querySelectorAll('.reveal');
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        revealElements.forEach(function (element) {
+          element.classList.add('is-visible');
+        });
+      } else {
+        var revealObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -8% 0px'
+        });
+
+        revealElements.forEach(function (element) {
+          revealObserver.observe(element);
+        });
+      }
+
+      document.getElementById('current-year').textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
+</html>
